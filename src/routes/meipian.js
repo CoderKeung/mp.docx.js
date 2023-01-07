@@ -6,17 +6,11 @@ var mp = new MPTODOCX("")
 router.get('/', function(req, res) {
   res.render("pages/meipian")
 });
-router.post('/deal', async function(req, res, next) {
-  mp.url = req.body.url
-  await mp.getArticleJsonData().then((jsonData)=>{
+router.post('/deal', async function(req, res) {
+  mp.url = req.body.url;
+  await mp.start().then(()=>{
+    res.download(`./docx/${mp.articleJsonData.article.title}.docx`)
   })
-  await mp.start()
-  next()
-},function(req, res) {
 });
-
-router.get("/work", function(req, res) {
-  res.send(`${mp.progress}`)
-})
 
 module.exports = router
