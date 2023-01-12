@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Long+Cang&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: medium;
+  font-family: 'Long Cang', cursive;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+:root {
+  --background: #fffffe;
+  --headline: #272343;
+  --paragraph: #2d334a;
+  --highlight: #ffd803;
+  --secondary: #e3f6f5;
+  --tertiary: #3dc7be;
+  --green: #02c39a;
+  --red: #f73859;
+  --yellow: #fcbf1e;
+}
+
+html {
+  background-color: var(--background);
+}
+
+body {
+  min-height: 100vh;
+  min-width: 100vw;
+  position: relative;
+}
+
+a {
+  display: inline-block;
+  height: 28px;
+  text-decoration: none;
+  color: var(--headline);
+}
+
+a::after {
+  content: "";
+  display: block;
+  position: relative;
+  height: 4px;
+  bottom: 4px;
+  z-index: -999;
+  background-color: var(--highlight);
+  transition: padidng-bottom, 0.3s linear;
+}
+
+a:hover::after{
+  height: 12px;
+  bottom: 12px;
+}
+
+footer {
+  position: fixed;
+  box-sizing: border-box;
+  width: 100%;
+  bottom: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: var(--background);
+  border: solid;
+  z-index: 9999;
+}
+
+footer>p {
+  text-align: center;
+}
+
+.entrance {
+  height: 50px;
+  margin: 18px;
+  border: solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.entrance>a {
+  height: 30px;
+  font-size: 28px;
+}
+
+.saying {
+  font-size: 30px;
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  font-family: 'Long Cang', cursive;
+  font-weight: 900;
+}
+
+.mp {
+  display: flex;
+  padding-top: 58px;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+.mp-main {
+  width: 80%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  transition: all, 0.3, linear;
+}
+
+.mp-input {
+  border: solid;
+  padding-left: 10px;
+  width: 90%;
+}
+
+.mp-submit {
+  width: 10%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid;
+  margin-left: 10px;
+}
+
+.mp-submit:hover {
+  background-color: var(--highlight);
+}
+
+.docx {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.docx a::after {
+  content: none;
+}
+
+.docx-table {
+  border: solid;
+  width: 80%;
+  text-align: center;
+  table-layout: fixed;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+
+.docx-table th {
+  border: solid;
+  font-size: 20px;
+}
+
+.docx-table td {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  border: solid;
+  text-overflow: ellipsis;
+  font-size: 18px;
+}
+
+@media screen and (max-width: 980px) {   
+  .mp-submit {
+    width: 100px;
+  } 
+
+  .docx-table td {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}

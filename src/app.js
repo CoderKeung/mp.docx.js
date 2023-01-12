@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 
 app.use(express.static(path.join(__dirname, "static")))
+app.use(express.static(path.join(__dirname, "../docx")))
 
 const PORT = 3000;
 

@@ -30,15 +30,6 @@ class MPTODOCX {
     this.url = url;
   }
 
-  getImageCount() {
-    for (let content of this.articleJsonData.content) {
-      if (content.img_url) {
-        this.progress = this.progress + 1;
-      }
-    }
-    console.log(this.progress)
-  }
-
   async getMpHtml() {
     const result = await axios.get(this.url);
     return result.data;
@@ -98,7 +89,6 @@ class MPTODOCX {
   }
 
   async setParagraphArray() {
-    this.getImageCount();
     this.createTitle();
     this.setTextArray();
     await this.setImageArray();

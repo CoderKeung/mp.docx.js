@@ -1,10 +1,25 @@
 <%- include('../partials/head'); %>
-<body class="bg-fixed">
-<main id="meipian">
-<form method="post" action="/meipian/deal">
-  请输入美篇链接：<input type="text" name="url"/>
-  <button type="submit" id="submit">提交</button>
-</form>
+
+<body>
+
+<main id="mp" class="mp">
+  <div class="mp-main">
+    <input class="mp-input" id="mp-url" type="url" placeholder="请粘贴美篇链接">
+    <div class="mp-submit" id="mp-submit">
+      提交
+    </div>
+  </div>
 </main>
+<div class="docx">
+  <table id="docx-table" class="docx-table">
+    <tr height="40">
+      <th>文件名</th>
+      <th width="100">下载</th>
+    </tr>
+  </table>
+</div>
+
+
 <%- include('../partials/footer'); %>
+
 </body>

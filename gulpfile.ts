@@ -6,7 +6,7 @@ var nodemon = require("gulp-nodemon");
 let node = (cb) => {
   nodemon({
     script: "src/app.js",
-    ext: "js, html",
+    ext: "js, html, css",
     env: {
       "NODE_ENV": "development",
     },
@@ -22,6 +22,7 @@ let server = (cb) => {
     "src/*.*",
     "src/views/**/*.ejs",
     "src/routes/*.js",
+    "src/static/*.*",
   ];
 
   browserSync.init({
