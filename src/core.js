@@ -18,16 +18,26 @@ const {
 
 class MPTODOCX {
   url= "";
-  articleJsonData;
+  articleJsonData = {content:{},title:{}};
   textArray = [];
   imageArray = [];
   paragraphArray = [];
   progress = 0;
   stylesPath = __dirname+"/static/styles.xml";
   docxDir = __dirname+"/../docx";
+  jp = false;
 
   constructor(url) {
     this.url = url;
+  }
+
+  isJP() {
+    var tmpUrl = this.url.split('/')
+    if (tmpUrl[2] === "www.jianpian.cn") {
+      this.jp = true;
+    } else {
+      this.jp = false;
+    }
   }
 
   async getMpHtml() {
@@ -36,18 +46,37 @@ class MPTODOCX {
   }
 
   async getArticleJsonData() {
+    this.isJP();
     const html = await this.getMpHtml();
     const $ = cheerio.load(html);
-    const strData = findTextAndReturnRemainder(
-      $("script").text(),
-      "var ARTICLE_DETAIL = ",
-      "var detail = ",
-    );
-    return JSON.parse(strData);
+    var strData = "";
+    if (this.jp) {
+      strData = findTextAndReturnRemainder(
+        $("script").text(),
+        "window.__INITIAL_STATE__ =",
+        "function",
+      );
+      return JSON.parse(strData);
+    } else {
+      strData = findTextAndReturnRemainder(
+        $("script").text(),
+        "var ARTICLE_DETAIL = ",
+        "var detail = ",
+      );
+      return JSON.parse(strData);
+    }
+    
   }
+
   async setArticleJsonData() {
     await this.getArticleJsonData().then((jsonData)=>{
-      this.articleJsonData = jsonData
+      if (this.jp) {
+        this.articleJsonData.content = jsonData.detail.article.content;
+        this.articleJsonData.title = jsonData.detail.article.title;
+      } else {
+        this.articleJsonData.content = jsonData.content;
+        this.articleJsonData.title = jsonData.article.title;
+      }
     });
   }
 
@@ -66,7 +95,7 @@ class MPTODOCX {
 
   createTitle() {
     this.textArray.push(new Paragraph({
-      children: [new TextRun(this.articleJsonData.article.title)],
+      children: [new TextRun(this.articleJsonData.title)],
       style: "GWH",
     }));
   }
@@ -119,7 +148,7 @@ class MPTODOCX {
       if (!fs.existsSync(this.docxDir)) {
         fs.mkdirSync(this.docxDir, {recursive: true})
       }
-      fs.writeFileSync(`${this.docxDir}/${this.articleJsonData.article.title}.docx`, buffer);
+      fs.writeFileSync(`${this.docxDir}/${this.articleJsonData.title}.docx`, buffer);
     })
   }
 
